@@ -7,7 +7,7 @@ INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('gram', 'grams')
 INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('milliliter', 'milliliters');
 INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('small', 'small');
 INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('container', 'containers');
-INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('large', 'large');*/
+INSERT INTO unit (unit_name_singular, unit_name_plural) VALUES ('large', 'large');
 
 INSERT INTO category (category_name) VALUES ('Asian');
 INSERT INTO category (category_name) VALUES ('Beef');

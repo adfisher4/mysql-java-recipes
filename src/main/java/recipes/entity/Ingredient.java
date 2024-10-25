@@ -61,6 +61,11 @@ public class Ingredient extends EntityBase {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+	
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+		
+	}
 
 	@Override
 	public String toString() {
@@ -80,6 +85,10 @@ public class Ingredient extends EntityBase {
 		}	
 		return b.toString();
 	}
+
+	
+
+
 	
 	
 	

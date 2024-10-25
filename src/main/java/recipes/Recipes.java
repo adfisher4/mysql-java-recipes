@@ -15,10 +15,12 @@ public class Recipes {
 	
 	private Scanner scanner = new Scanner(System.in);
 	private RecipeService recipeService = new RecipeService();
-	
+	private Recipe curRecipe; // ADDED ************************************************
 	private List<String> operations = List.of(
 			"1) Create and populate all tables",
-			"2) Add a recipe");
+			"2) Add a recipe",
+			"3) List recipe",
+			"4) Select working recipe");
 
 	public static void main(String[] args) {
 		new Recipes().displayMenu();
@@ -49,6 +51,12 @@ public class Recipes {
 				addRecipe();
 				break;
 				
+			case 3:
+				listRecipes();
+				break;
+			case 4:
+				setCurrentRecipe();
+				break;
 			default:
 				System.out.println("\n" + operation + " is not valid. Try again.");
 			
@@ -59,6 +67,35 @@ public class Recipes {
 	}
 	}
 		
+	private void setCurrentRecipe() {
+		
+		List<Recipe> recipes = listRecipes();
+		
+		Integer recipeId = getIntInput("Select a recipe ID");
+		
+		curRecipe = null;
+		
+		for(Recipe recipe: recipes) {
+			if(recipe.getRecipeId().equals(recipeId)) {
+				curRecipe = recipeService.fetchRecipeById(recipeId);
+				System.out.println(curRecipe); // ADDED  ***************************
+				break;
+			}
+		}
+		if(Objects.isNull(curRecipe)) {
+			System.out.println("\nInvalid recipe selected. ");
+		}
+	}
+
+	private List<Recipe> listRecipes() {
+		List<Recipe> recipes = recipeService.fetchRecipes();
+		
+		System.out.println("\nRecipes");
+		
+		recipes.forEach(recipe -> System.out.println("    " + recipe.getRecipeId() + ": " + recipe.getRecipeName()));
+		return recipes;
+	}
+
 	private void addRecipe() {
 		String name = getStringInput("Enter the recipe name: ");
 		String notes = getStringInput("Enter recipe notes: ");
@@ -80,11 +117,12 @@ public class Recipes {
 		Recipe dbRecipe = recipeService.addRecipe(recipe);
 		System.out.println("You added this recipe: \n" + dbRecipe);
 		
+		curRecipe = recipeService.fetchRecipeById(dbRecipe.getRecipeId());
 	}
 
 	private LocalTime minutesToLocalTime(Integer numMinutes) {
 		int min = Objects.isNull(numMinutes) ? 0 : numMinutes;
-		int hours = min / 60;
+		int hours = min / 60 ;
 		int minutes = min % 60;
 		return LocalTime.of(hours, minutes);
 	}
